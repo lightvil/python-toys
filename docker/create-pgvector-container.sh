@@ -6,8 +6,11 @@ CURRENT_WORKING_DIR=`pwd`
 source ./env
 
 # initdb script를 생성하여 마운트할 볼륨에 복사한다. 스크립트에서는 SERVICE_VS_USER 환경변수를 참조한다.
+mkdir -p ${CURRENT_WORKING_DIR}/volumes/vectorstore/docker-entrypoint-initdb.d
+chmod 777 ${CURRENT_WORKING_DIR}/volumes/vectorstore/docker-entrypoint-initdb.d
 ./create-initdb-sql.sh > ${CURRENT_WORKING_DIR}/volumes/vectorstore/docker-entrypoint-initdb.d/initdb.sql
-mkdir ${CURRENT_WORKING_DIR}/volumes/vectorstore/data
+
+mkdir -p ${CURRENT_WORKING_DIR}/volumes/vectorstore/data
 chmod 7777 ${CURRENT_WORKING_DIR}/volumes/vectorstore/data
 
 docker run -d \
